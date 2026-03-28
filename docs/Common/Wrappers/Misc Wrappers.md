@@ -2,17 +2,18 @@
 
 ## API Reference
 
-```{eval-rst}
-.. autoclass:: masa.common.wrappers.RewardShapingWrapper
-    :members:
-    :show-inheritance:
-.. autoclass:: masa.common.wrappers.NormWrapper
-    :members:
-    :show-inheritance:
-.. autoclass:: masa.common.wrappers.OneHotObsWrapper
-    :members:
-    :show-inheritance:
-.. autoclass:: masa.common.wrappers.FlattenDictObsWrapper
-    :members:
-    :show-inheritance:
-```
+::: masa.common.wrappers.RewardShapingWrapper
+    options:
+      show_root_heading: false
+
+::: masa.common.wrappers.NormWrapper
+    options:
+      show_root_heading: false
+
+::: masa.common.wrappers.OneHotObsWrapper
+    options:
+      show_root_heading: false
+
+::: masa.common.wrappers.FlattenDictObsWrapper
+    options:
+      show_root_heading: false

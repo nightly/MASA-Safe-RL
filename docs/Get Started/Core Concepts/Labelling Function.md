@@ -1,0 +1,117 @@
+# Labelling Function
+
+This page describes the labelling function API, the underlying labelled Markov decision process formalism, and the MASA convention for mapping environment observations to sets of atomic predicates. These components are foundational for safety objectives, probabilistic shielding, and temporal-logic specifications such as safety LTL.
+
+## Atomic Predicates and Labels
+
+We assume a fixed finite set of atomic predicates:
+
+$$
+\mathcal{AP} = \{p_1, p_2, \dots, p_k\}.
+$$
+
+An atomic predicate represents a Boolean property of the environment state, such as:
+
+- `"unsafe"`
+- `"goal"`
+- `"collision"`
+- `"near_obstacle"`
+
+At runtime, a state may satisfy zero or more atomic predicates simultaneously, so the label of a state or observation is a set of predicates.
+
+## Labelling Function API
+
+### Type Signature
+
+The labelling function type is:
+
+```python
+LabelFn = Callable[[Any], Iterable[str]]
+```
+
+Formally, MASA treats labelling as a map from observations to predicate sets:
+
+$$
+L : \mathcal{O} \rightarrow 2^{\mathcal{AP}},
+$$
+
+where $\mathcal{O}$ is the observation space and $2^{\mathcal{AP}}$ is the power set of atomic predicates.
+
+### Semantics
+
+Given an observation `obs`, the labelling function returns the set of atomic predicates that hold in that observation.
+
+Requirements:
+
+- The output must be iterable, for example a `list`, `tuple`, or `set`.
+- Elements must be strings, each naming an atomic predicate in $\mathcal{AP}$.
+- The returned collection is interpreted as a set, so duplicates are ignored.
+
+### Example
+
+```python
+def label_fn(obs):
+    labels = set()
+
+    if obs["x"] < 0:
+        labels.add("unsafe")
+
+    if obs["goal_reached"]:
+        labels.add("goal")
+
+    return labels
+```
+
+## Observation-to-Labels Convention
+
+MASA uses the following convention:
+
+**Labels are computed from observations, not from internal environment state.**
+
+This improves compatibility with partially observable environments, consistency under wrappers and abstractions, and compositionality with automata- and logic-based monitors.
+
+| Concept | Convention |
+| --- | --- |
+| Input to label function | Raw observation returned by `gymnasium.Env.reset` and `gymnasium.Env.step` |
+| Output | A set of atomic predicate strings, $L(obs) \subseteq \mathcal{AP}$ |
+| Empty output | Valid, meaning no predicates are satisfied |
+| Determinism | Strongly recommended |
+
+## Labelled Environment Wrapper
+
+To standardize access to labels, MASA provides `masa.common.labelled_env.LabelledEnv`, a lightweight Gymnasium wrapper that computes labels on every `gymnasium.Env.reset` and `gymnasium.Env.step` and injects them into the `info` dictionary under the key `"labels"`:
+
+```python
+info["labels"] = set(label_fn(obs))
+```
+
+### Usage
+
+```python
+import gymnasium as gym
+from masa.common.labelled_env import LabelledEnv
+
+env = gym.make("CartPole-v1")
+env = LabelledEnv(env, label_fn)
+
+obs, info = env.reset()
+labels = info["labels"]
+
+obs, reward, terminated, truncated, info = env.step(env.action_space.sample())
+labels = info["labels"]
+```
+
+### API Reference
+
+::: masa.common.labelled_env.LabelledEnv
+    options:
+      show_root_heading: false
+
+## Common Pitfalls
+
+| Pitfall | Recommendation |
+| --- | --- |
+| Returning non-strings | Always return strings naming atomic predicates |
+| Using environment internals | Derive labels from observations instead of hidden state |
+| Stateful label functions | Prefer pure, stateless functions; state belongs in constraints and monitors |
+| Inconsistent predicate vocabulary | Define and document $\mathcal{AP}$ clearly, including spelling and casing |

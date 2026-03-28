@@ -1,0 +1,139 @@
+[project]
+site_name = "MASA Safe RL Docs"
+site_url = "https://sacktock.github.io/MASA-Safe-RL/"
+site_description = "Documentation for MASA-Safe-RL, the Multi and Single Agent Safe Reinforcement Learning library."
+site_author = "Alexander Goodall, Omar Adalat, Edwin Hamel De Le Court, Francesco Belardinelli"
+copyright = "&copy; 2025 Alexander Goodall, Omar Adalat, Edwin Hamel De Le Court, Francesco Belardinelli"
+docs_dir = "docs"
+repo_url = "https://github.com/sacktock/MASA-Safe-RL"
+edit_uri = "edit/main/docs/"
+extra_css = ["stylesheets/extra.css"]
+extra_javascript = [
+  "javascripts/mathjax.js",
+  "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js",
+]
+nav = [
+  {"Home" = "index.md"},
+  {"Get Started" = [
+    "Get Started/Quick Start.md",
+    {"Core Concepts" = [
+      "Get Started/Core Concepts.md",
+      "Get Started/Core Concepts/Labelling Function.md",
+      "Get Started/Core Concepts/Cost Function.md",
+    ]},
+    "Get Started/Basic Usage.md",
+  ]},
+  {"Common API" = [
+    {"Constraints" = [
+      "Common/Constraints.md",
+      "Common/Constraints/Constrained Markov Decision Process (CMDP).md",
+      "Common/Constraints/LTL Safety.md",
+      "Common/Constraints/PCTL.md",
+      "Common/Constraints/Stepwise Probabilistic.md",
+      "Common/Constraints/Reach Avoid.md",
+      {"Multi Agent" = [
+        "Common/Constraints/Multi Agent.md",
+        "Common/Constraints/Multi Agent/ATL.md",
+      ]},
+    ]},
+    {"Wrappers" = [
+      "Common/Wrappers.md",
+      "Common/Wrappers/Core Wrappers.md",
+      "Common/Wrappers/Misc Wrappers.md",
+      "Common/Wrappers/Vectorized Envs.md",
+    ]},
+    {"Metrics" = [
+      "Common/Metrics.md",
+      "Common/Metrics/Logging.md",
+    ]},
+    {"LTL" = [
+      "Common/LTL.md",
+      "Common/LTL/Propositional Formula.md",
+      "Common/LTL/DFA.md",
+      "Common/LTL/Cost Function as DFA.md",
+      "Common/LTL/Shaped Cost Function.md",
+    ]},
+    {"PCTL" = [
+      "Common/PCTL.md",
+      "Common/PCTL/Propositional Operators.md",
+      "Common/PCTL/Temporal Operators.md",
+      "Common/PCTL/Model Checking.md",
+    ]},
+  ]},
+  {"Environments" = [
+    {"Multi Agent" = [
+      "Environments/Multi Agent.md",
+      {"Parallel" = [
+        "Environments/Multi Agent/Parallel/Parallel.md",
+        {"Matrix Games" = [
+          "Environments/Multi Agent/Parallel/Matrix Games/Battle of the Sexes.md",
+          "Environments/Multi Agent/Parallel/Matrix Games/Prisoners Dilemma.md",
+        ]},
+        {"Gridworlds" = [
+          "Environments/Multi Agent/Parallel/Gridworlds/Markov Stag Hunt.md",
+        ]},
+      ]},
+      {"Turn Based" = [
+        "Environments/Multi Agent/Turn Based/Turn Based.md",
+      ]},
+    ]},
+    {"Single Agent" = [
+      "Environments/Single Agent.md",
+      "Environments/Single Agent/Pacman.md",
+    ]},
+  ]},
+  {"Algorithms" = [
+    "Algorithms/PPO Lagrangian.md",
+    "Algorithms/CPO.md",
+  ]},
+  {"Tutorials" = [
+    "Tutorials/Basics.md",
+    "Tutorials/Constraints.md",
+    "Tutorials/LTL-Safety.md",
+    "Tutorials/Wrappers.md",
+    "Tutorials/Environments.md",
+    "Tutorials/Algorithms.md",
+  ]},
+  {"Misc" = [
+    "Misc/Probabilistic Shielding.md",
+  ]},
+]
+
+[project.theme]
+features = [
+  "content.action.edit",
+  "content.action.view",
+  "navigation.sections",
+  "navigation.expand",
+  "navigation.path",
+  "navigation.top",
+]
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+toggle = { icon = "lucide/moon", name = "Switch to dark mode" }
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+toggle = { icon = "lucide/sun", name = "Switch to light mode" }
+
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+
+[project.markdown_extensions.pymdownx.highlight]
+pygments_lang_class = true
+
+[project.markdown_extensions.pymdownx.superfences]
+
+[project.plugins.mkdocstrings.handlers.python]
+inventories = ["https://docs.python.org/3/objects.inv"]
+paths = ["."]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+docstring_style = "google"
+docstring_section_style = "list"
+inherited_members = true
+members_order = "source"
+show_source = false

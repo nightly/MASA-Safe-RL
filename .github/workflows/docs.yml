@@ -1,4 +1,4 @@
-name: Build & Deploy Sphinx docs to Pages
+name: Build & Deploy Docs to Pages
 
 on:
   push:
@@ -38,16 +38,16 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Build Sphinx
-        id: sphinx
+      - name: Build docs
+        id: docs
         run: |
-          uv run --locked sphinx-build -b html docs docs/_build/html
-          echo "out=docs/_build/html" >> "$GITHUB_OUTPUT"
+          uv run --locked zensical build
+          echo "out=site" >> "$GITHUB_OUTPUT"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ${{ steps.sphinx.outputs.out }}
+          path: ${{ steps.docs.outputs.out }}
 
   deploy:
     runs-on: ubuntu-latest

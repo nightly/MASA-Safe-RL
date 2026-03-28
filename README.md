@@ -44,7 +44,7 @@ pip install -e .
 #### Installation with uv
 `uv sync` allows installing the base package.
 
-* For building docs, you can use `uv sync --group docs`.
+* For building docs, you can use `uv sync --group docs` and then `uv run zensical build`.
 * Adding GPU support for Jax: `uv sync --group cuda12` (or `cuda13` if supported by your device)
 * All groups (docs and GPU support): `uv sync --all-groups`.
 
@@ -85,6 +85,21 @@ python -m masa.run --env-id bridge_crossing --algo ppo --custom-cfgs bridge_cros
 - You can run examples from the ```\examples``` folder via:
 ```
 python -m masa.examples.prob_shield_example
+```
+
+## Building Docs
+The docs can be built with:
+```sh
+uv sync --group docs
+uv run zensical build
+```
+
+The generated site is written to `site/`.
+
+Live reloading is supported with either:
+```sh
+uv sync --group docs
+uv run zensical serve
 ```
 
 ## Getting in Touch

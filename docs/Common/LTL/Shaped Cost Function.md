@@ -2,8 +2,6 @@
 
 ## API Reference
 
-```{eval-rst}
-.. autoclass:: masa.common.ltl.ShapedCostFn
-    :members:
-    :show-inheritance:
-```
+::: masa.common.ltl.ShapedCostFn
+    options:
+      show_root_heading: false

@@ -1,7 +1,9 @@
 # Probabilistic Computation Tree Logic (PCTL) Constraint
 
-```{eval-rst}
-.. automodule:: masa.common.constraints.pctl
-    :members:
-    :show-inheritance:
-```
+::: masa.common.constraints.pctl.PCTL
+    options:
+      show_root_heading: false
+
+::: masa.common.constraints.pctl.PCTLEnv
+    options:
+      show_root_heading: false

@@ -2,12 +2,10 @@
 
 ## API Reference
 
-```{eval-rst}
-.. autoclass:: masa.common.ltl.DFACostFn
-    :members:
-    :show-inheritance:
-```
+::: masa.common.ltl.DFACostFn
+    options:
+      show_root_heading: false
 
-```{eval-rst}
-.. automethod:: masa.common.ltl.dfa_to_costfn
-```
+::: masa.common.ltl.dfa_to_costfn
+    options:
+      show_root_heading: false

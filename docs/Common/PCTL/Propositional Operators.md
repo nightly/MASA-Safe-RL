@@ -2,10 +2,26 @@
 
 ## API Reference
 
-```{eval-rst}
-.. automodule:: masa.common.pctl
-   :members: BoundedPCTLFormula, Truth, Atom, Neg, And, Or
-   :special-members: _prob_seq
-   :private-members:
-   :show-inheritance:
-```
+::: masa.common.pctl.BoundedPCTLFormula
+    options:
+      show_root_heading: false
+
+::: masa.common.pctl.Truth
+    options:
+      show_root_heading: false
+
+::: masa.common.pctl.Atom
+    options:
+      show_root_heading: false
+
+::: masa.common.pctl.Neg
+    options:
+      show_root_heading: false
+
+::: masa.common.pctl.And
+    options:
+      show_root_heading: false
+
+::: masa.common.pctl.Or
+    options:
+      show_root_heading: false

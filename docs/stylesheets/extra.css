@@ -1,0 +1,11 @@
+/* Make generated API headings easier to scan. */
+.doc.doc-heading {
+  border-left: 3px solid var(--md-primary-fg-color, currentColor);
+  padding-left: 0.75rem;
+}
+
+/* Improve spacing between generated API members. */
+.doc.doc-object,
+.doc-contents .doc-object {
+  margin-bottom: 1.5rem;
+}

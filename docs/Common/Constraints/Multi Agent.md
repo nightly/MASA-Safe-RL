@@ -1,8 +1,7 @@
 # Multi Agent Constraints
 
-Here, we consider constraints only applicable to multi-agent environments.
+This section covers constraints that are only applicable to multi-agent environments.
 
-```{toctree}
+## Next Steps
 
-Multi Agent/ATL
-```
+- [ATL](Multi%20Agent/ATL) - Alternating-time temporal logic for multi-agent systems.

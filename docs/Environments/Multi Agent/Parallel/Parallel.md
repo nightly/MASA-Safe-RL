@@ -1,13 +1,12 @@
 # Parallel Multi Agent Environments
-PettingZoo supports two types of environment interfaces:
-- `Parallel`, for environments where at each timestep, each agent selects an action independently. Formally, such environments are representable as a **Partially Observable Stochastic Game**.
-- `AEC`, for turn-based environments using the *Agent Environment Cycle* model. Parallel environments can be converted to AEC environments.
 
+PettingZoo supports two main types of environment interfaces:
 
-```{toctree}
-:hidden:
+- `Parallel`, where each agent selects an action independently at each timestep. These environments are naturally representable as partially observable stochastic games.
+- `AEC`, for turn-based environments using the agent-environment cycle model. Parallel environments can be converted to AEC environments when needed.
 
-Gridworlds/Markov Stag Hunt
-Matrix Games/Prisoners Dilemma
-Matrix Games/Battle of the Sexes
-```
+## Next Steps
+
+- [Markov Stag Hunt](Gridworlds/Markov%20Stag%20Hunt) - A parallel gridworld benchmark.
+- [Prisoners Dilemma](Matrix%20Games/Prisoners%20Dilemma) - A classic matrix game.
+- [Battle of the Sexes](Matrix%20Games/Battle%20of%20the%20Sexes) - A coordination matrix game.
