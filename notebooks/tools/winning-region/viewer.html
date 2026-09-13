@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Winning region · MASA</title>
+<style>
+@font-face{font-family:SourceLocal;src:local('Source Sans Pro'),local('Source Sans 3')}
+:root{--ink:#233846;--muted:#697f8b;--paper:#f5f7f6;--line:#dce5e3;--teal:#147e79;--mint:#e1f2ec;--red:#b65366;--rose:#f8e9ed;--gold:#b87925;--cream:#fcf1d9;--blue:#457eb3;--shadow:0 8px 32px #16352c08}
+svg{font-family:SourceLocal,'Source Sans Pro','Source Sans 3','Segoe UI',sans-serif}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:SourceLocal,'Source Sans Pro','Source Sans 3','Segoe UI',sans-serif;font-size:15px}button,input,select{font:inherit}button,select{cursor:pointer}button{background:white;border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:8px 13px;transition:background .15s}button:hover{background:#edf4f1}button:disabled{opacity:.4;cursor:default}button.primary{background:var(--teal);color:white;border-color:var(--teal)}button:focus-visible,input:focus-visible,select:focus-visible,svg .node:focus-visible{outline:3px solid #75bcb5;outline-offset:3px}input[type=checkbox],input[type=range]{accent-color:var(--teal)}input[type=range]{cursor:pointer}select{padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink)}header{max-width:1800px;margin:auto;padding:27px 32px 20px;display:flex;justify-content:space-between;align-items:center;gap:20px}.eyebrow{font-size:11px;letter-spacing:2px;font-weight:700;color:var(--teal);text-transform:uppercase}h1{font-size:32px;font-weight:600;letter-spacing:-.8px;line-height:1.15;margin:7px 0}h2{font-size:17px;font-weight:600;margin:0}p{margin:5px 0;line-height:1.5}.subtle{color:var(--muted)}.badge{font-size:12px;background:var(--mint);color:var(--teal);padding:7px 12px;border-radius:30px;white-space:nowrap}.app{max-width:1800px;margin:auto;padding:0 24px 24px}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px}.card{background:white;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}.graph-head{padding:19px 21px 13px;display:flex;align-items:center;justify-content:space-between;gap:10px}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);padding:0 21px 8px}.legend span:before{content:'';display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:var(--mint);border:1px solid var(--teal)}.legend .losing:before{background:var(--rose);border-color:var(--red)}.legend .pending:before{background:var(--cream);border-color:var(--gold)}.legend .active:before{background:#e6eff8;border-color:var(--blue)}.toolbar{display:flex;gap:6px;align-items:center}.toolbar button{padding:5px 10px}.viewport{height:560px;min-height:360px;position:relative;background:radial-gradient(circle at 1px 1px,#d3dfd947 1px,transparent 0) 0 0/20px 20px}#graph{width:100%;height:100%;touch-action:none;user-select:none}.graph-note{font-size:12px;padding:9px 21px 12px;display:flex;justify-content:space-between;gap:15px;border-top:1px solid #edf2f0;color:var(--muted)}.graph-note label{white-space:nowrap}aside{display:flex;flex-direction:column;gap:16px}.panel{padding:18px 20px}.monitor-wrap{height:157px;margin:3px -10px}#monitor{width:100%;height:100%;overflow:visible}.caption{font-size:12px;color:var(--muted);line-height:1.4}.formula{font-family:Georgia,'Times New Roman',serif;font-size:17px;padding:13px 0;color:var(--teal)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:11px}.stat strong{font-size:26px;font-weight:600;display:block;line-height:1.2}.stat span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}.state-heading{margin-top:12px;display:flex;justify-content:space-between;align-items:center}.pill{font-size:11px;border-radius:20px;padding:4px 9px;background:#ecf2f4}.state-labels{font-size:12px;color:var(--muted);margin:5px 0 12px;overflow-wrap:anywhere}.actions{max-height:230px;overflow:auto}.action{border:1px solid var(--line);border-radius:9px;padding:9px 10px;margin-top:7px;line-height:1.35}.action.good{border-color:#b9dcd0;background:#f4faf7}.action.bad{border-color:#ebccd3;background:#fcf6f7}.action.off{background:#f7f8f8;color:var(--muted)}.action strong{font-weight:600}.action small{display:block;color:var(--muted);font-size:12px;overflow-wrap:anywhere;margin-top:3px}.action-status{float:right;font-size:11px}.select-state{width:100%;margin-top:10px}.follow{font-size:12px;display:block;margin-top:10px}.controls{margin-top:17px;padding:18px 21px}.transport{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.transport .spacer{flex:1}.timeline{width:100%;margin:16px 0 7px}.timeline-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}.narration{margin-top:17px;display:grid;grid-template-columns:140px 1fr;gap:18px;border-top:1px solid var(--line);padding-top:15px;min-height:80px}.phase{font-size:11px;letter-spacing:1px;color:var(--teal);text-transform:uppercase;font-weight:700;line-height:1.5}.narration p{margin:0;font-size:15px}.footer{font-size:12px;color:var(--muted);padding:14px 2px;display:flex;justify-content:space-between;gap:15px}.footer button{font-size:12px;padding:4px 10px}.lane rect{fill:#fcfdfc;fill-opacity:.65;stroke:#dce7e2;stroke-dasharray:5 5}.lane text{font-size:12px;letter-spacing:1px;font-weight:600;fill:#7b918b}.edge path{fill:none;stroke:#a4b6b1;stroke-width:1.6;opacity:.42;transition:stroke .24s,opacity .24s}.edge text{font-size:11px;fill:#627a75;paint-order:stroke;stroke:#fcfdfc;stroke-width:5px;stroke-linejoin:round;opacity:.82;pointer-events:none}.edge.focus path{opacity:1;stroke-width:2.6}.edge.good path{stroke:var(--teal)}.edge.bad path{stroke:var(--red)}.edge.dim path{opacity:.10}.edge.dim text{opacity:0}.edge.bad text{fill:var(--red)}.edge.good text{fill:var(--teal)}.node{cursor:grab}.node circle.body{fill:var(--mint);stroke:var(--teal);stroke-width:1.8;transition:fill .3s,stroke .3s}.node text{font-size:14px;fill:var(--ink);font-weight:600;pointer-events:none;text-anchor:middle;dominant-baseline:central}.node .small{font-size:10px;font-weight:400;fill:var(--muted)}.node .halo{fill:none;stroke:var(--blue);stroke-width:3;opacity:0}.node.selected .halo{opacity:1}.node.lost circle.body{fill:#f1f1f2;stroke:#a4a7ac;stroke-dasharray:4 3}.node.reject circle.body{fill:var(--rose);stroke:var(--red)}.node.pending circle.body{fill:var(--cream);stroke:var(--gold);stroke-width:2.5}.node .reject-mark{stroke:var(--red);stroke-width:1.2;fill:none}.node .status-mark{font-size:10px;font-weight:700}.node.current .halo{opacity:1;stroke:var(--blue);stroke-dasharray:5 3}.node.current circle.body{stroke:var(--blue);stroke-width:2.5}.node.winner circle.body{fill:#cdeee0;stroke:var(--teal);stroke-width:2.6}.monitor-node circle{fill:var(--mint);stroke:var(--teal);stroke-width:1.6}.monitor-node.reject circle{fill:var(--rose);stroke:var(--red)}.monitor-node text{font-size:13px;text-anchor:middle;dominant-baseline:central;fill:var(--ink)}.monitor-node.current circle{stroke:var(--blue);stroke-width:3}.monitor-edge{fill:none;stroke:#81988f;stroke-width:1.5}.monitor-label{font-size:11px;fill:var(--muted);text-anchor:middle;paint-order:stroke;stroke:white;stroke-width:4px}.sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0,0,0,0)}
+@media(min-width:1500px){.viewport{height:630px}.workspace{grid-template-columns:minmax(0,1fr) 360px}}@media(max-width:950px){header{padding:20px}.app{padding:0 12px 16px}.workspace{grid-template-columns:1fr}aside{display:grid;grid-template-columns:1fr 1fr}.viewport{height:540px}.graph-head{flex-wrap:wrap}.narration{grid-template-columns:110px 1fr}}@media(max-width:560px){aside{display:flex}.badge{display:none}h1{font-size:27px}.viewport{height:420px}.graph-note{flex-wrap:wrap}.narration{grid-template-columns:1fr;gap:5px}.transport .spacer{display:none}.footer{flex-wrap:wrap}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div><div class="eyebrow">MASA / Safe reinforcement learning</div><h1>Inside the winning region</h1><p class="subtle" id="subtitle"></p></div><span class="badge" id="verified">Exact support · verified against MASA</span></header>
+<main class="app">
+<div class="workspace">
+<section class="card" aria-label="Product automaton">
+<div class="graph-head"><div><h2>Environment × safety monitor</h2><p class="caption">One node per product state. One decision at a time.</p></div><div class="toolbar"><button id="zoom-out" aria-label="Zoom out">−</button><button id="zoom-in" aria-label="Zoom in">+</button><button id="fit">Fit view</button></div></div>
+<div class="legend"><span>Candidate / winning</span><span class="pending">Pending removal</span><span class="losing">Rejecting / losing</span><span class="active">Inspecting</span></div>
+<div class="viewport"><svg id="graph" role="img" aria-label="Interactive product-state transition graph"><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#99b0a6"/></marker><marker id="arrow-good" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#147e79"/></marker><marker id="arrow-bad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#b65366"/></marker></defs><g id="scene"><g id="lanes"></g><g id="edges"></g><g id="nodes"></g></g></svg></div>
+<div class="graph-note"><span>Drag a node to arrange · drag background to pan · scroll to zoom</span><label><input type="checkbox" id="all-labels"> All action labels</label></div>
+</section>
+<aside>
+<section class="card panel"><div class="eyebrow">The safety property</div><h2 id="property" style="margin-top:7px;overflow-wrap:anywhere"></h2><div class="monitor-wrap"><svg id="monitor" role="img" aria-label="Bad-prefix safety DFA"></svg></div><p class="caption">Double circles mark violations. Guards are checked in insertion order; “otherwise” is the implicit self-loop.</p><div class="formula">Wₖ₊₁ = Wₖ ∩ CPre(Wₖ)</div><p class="caption">Keep a state when at least one enabled action has <strong>every</strong> possible successor in Wₖ.</p><div class="stats"><div class="stat"><strong id="round">0</strong><span>Round</span></div><div class="stat"><strong id="remaining">0</strong><span>Remaining</span></div><div class="stat"><strong id="removed">0</strong><span>Removed</span></div></div></section>
+<section class="card panel"><div class="eyebrow">State inspector</div><label for="state-select" class="sr-only">Inspect a product state</label><select id="state-select" class="select-state"><option value="" disabled selected>Select a product state…</option></select><label class="follow"><input type="checkbox" id="follow" checked> Follow the computation</label><div class="state-heading"><h2 id="state-title">Select a state</h2><span class="pill" id="state-status"></span></div><p class="state-labels" id="state-labels"></p><p class="caption" id="evaluation-set"></p><div class="actions" id="actions"></div><p class="caption" style="margin-top:10px">Hover an action to isolate its full support. Names label choices, not guaranteed movement outcomes.</p></section>
+</aside>
+</div>
+<section class="card controls" aria-label="Animation controls">
+<div class="transport"><button id="reset" title="Restart (Home)">↶ Restart</button><button id="back" title="Previous step (←)">← Back</button><button id="play" class="primary" title="Play or pause (Space)">▶ Play</button><button id="step" title="Next step (→)">Step →</button><button id="next-round">Next round ⇥</button><button id="finish" title="Show fixed point (End)">Fixed point</button><span class="spacer"></span><label for="speed" class="caption">Speed</label><select id="speed"><option value="1800">0.5×</option><option value="900" selected>1×</option><option value="450">2×</option><option value="180">5×</option></select></div>
+<label for="timeline" class="sr-only">Animation step</label><input id="timeline" class="timeline" type="range" min="0" value="0" step="1"><div class="timeline-meta"><span>W₀ = all non-rejecting product states</span><span id="step-count"></span></div>
+<div class="narration" role="status" aria-live="polite"><div class="phase" id="phase">Initialization</div><p id="explanation"></p></div>
+</section>
+<div class="footer"><span>Infinite-horizon safety · disabled actions are not safe · all positive-probability outcomes count</span><div><button id="export-svg">Export diagram SVG</button> <button id="export-trace">Export trace JSON</button></div></div>
+</main>
+<script id="model" type="application/json">__WINNING_REGION_DATA__</script>
+<script>
+'use strict';
+(() => {
+const D = JSON.parse(document.getElementById('model').textContent);
+const $ = id => document.getElementById(id), NS = 'http://www.w3.org/2000/svg';
+const total = D.nStates * D.nDfa, last = D.events.length - 1;
+let cursor = 0, selected = null, hoverAction = null, timer = null;
+let view = {x:0,y:0,w:D.layout.width,h:D.layout.height};
+const positions = D.layout.nodes.map(p => ({...p}));
+const short = (text,n=28) => text.length > n ? text.slice(0,n-1)+'…' : text;
+const stateName = id => `${D.states[id % D.nStates]} · q${D.dfa[Math.floor(id / D.nStates)]}`;
+const fullState = id => `${stateName(id)} [${id}]`;
+const event = () => D.events[cursor];
+const oldAlive = (id,round) => D.removedAt[id] < 0 || D.removedAt[id] >= Math.max(1,round);
+const isCommitted = () => ['commit','fixed'].includes(event().phase);
+function status(id) {
+  const r = D.removedAt[id], e = event();
+  if (r === 0) return 'reject';
+  if (r > 0 && (r < e.round || (r === e.round && isCommitted()))) return 'lost';
+  if (r === e.round && r > 0 && D.decisionAt[id] <= cursor) return 'pending';
+  return e.phase === 'fixed' ? 'winner' : 'candidate';
+}
+function actionInfo(id,a) {
+  const targets = D.adjacency[id][a], round = Math.max(1,event().round);
+  const blocked = targets.filter(t => !oldAlive(t,round));
+  const sourceAlive = oldAlive(id,round);
+  return {targets,blocked,enabled:targets.length>0,good:sourceAlive && targets.length>0 && blocked.length===0,sourceAlive};
+}
+function svgElement(tag, attrs={}, text=null) {
+  const e = document.createElementNS(NS,tag);
+  Object.entries(attrs).forEach(([key,value]) => e.setAttribute(key,String(value)));
+  if (text!==null) e.textContent=text;
+  return e;
+}
+function addTitle(e,text) { e.appendChild(svgElement('title',{},text)); }
+$('subtitle').textContent = `${D.environment} / ${total} product states / greatest fixed-point synthesis`;
+$('property').textContent = D.title;
+$('verified').hidden = !D.verified;
+$('timeline').max=last;
+$('all-labels').checked=total<=24;
+D.layout.lanes.forEach(l => {
+  const g=svgElement('g',{class:'lane'});
+  g.appendChild(svgElement('rect',{x:l.x,y:l.y,width:l.width,height:l.height,rx:19}));
+  g.appendChild(svgElement('text',{x:l.x+22,y:l.y+29},`MONITOR q${D.dfa[l.q]}${D.rejecting[l.q]?'  /  REJECTING':''}`));
+  $('lanes').appendChild(g);
+});
+const edgeElements=D.edges.map(edge => {
+  const g=svgElement('g',{class:'edge'}), path=svgElement('path',{'marker-end':'url(#arrow)'});
+  const label=svgElement('text',{'text-anchor':'middle'});
+  label.textContent=short(edge.actions.map(a=>D.actions[a]).join(' / '),42);
+  addTitle(g,`${fullState(edge.source)} → ${fullState(edge.target)}\n${edge.actions.map(a=>D.actions[a]).join(', ')}`);
+  g.append(path,label); $('edges').appendChild(g); return {g,path,label,edge};
+});
+const nodeElements=positions.map((p,id) => {
+  const g=svgElement('g',{class:'node',tabindex:0,role:'button','aria-label':fullState(id),'data-id':id});
+  addTitle(g,`${fullState(id)}\nLabels: {${D.labels[id%D.nStates].join(', ')}}`);
+  g.appendChild(svgElement('circle',{class:'halo',r:34}));
+  g.appendChild(svgElement('circle',{class:'body',r:28}));
+  if(D.rejecting[Math.floor(id/D.nStates)]) g.appendChild(svgElement('circle',{class:'reject-mark',r:23}));
+  g.appendChild(svgElement('text',{y:-4},short(D.states[id%D.nStates],9)));
+  g.appendChild(svgElement('text',{class:'small',y:12},`#${id}`));
+  g.appendChild(svgElement('text',{class:'status-mark',x:24,y:-27}));
+  g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectState(id);}});
+  $('nodes').appendChild(g);
+  const option=document.createElement('option');option.value=id;option.textContent=fullState(id);$('state-select').appendChild(option);
+  return g;
+});
+function geometry() {
+  nodeElements.forEach((g,id)=>g.setAttribute('transform',`translate(${positions[id].x} ${positions[id].y})`));
+  edgeElements.forEach(({path,label,edge})=>{
+    const a=positions[edge.source],b=positions[edge.target];
+    if(edge.source===edge.target){
+      path.setAttribute('d',`M ${a.x-18} ${a.y-22} C ${a.x-65} ${a.y-83}, ${a.x+65} ${a.y-83}, ${a.x+18} ${a.y-23}`);
+      label.setAttribute('x',a.x);label.setAttribute('y',a.y-70);return;
+    }
+    const dx=b.x-a.x,dy=b.y-a.y,dist=Math.max(1,Math.hypot(dx,dy));
+    const bend=Math.min(34,dist*.16),cx=(a.x+b.x)/2-dy/dist*bend,cy=(a.y+b.y)/2+dx/dist*bend;
+    const ds=Math.max(1,Math.hypot(cx-a.x,cy-a.y)),dt=Math.max(1,Math.hypot(b.x-cx,b.y-cy));
+    const sx=a.x+(cx-a.x)/ds*30,sy=a.y+(cy-a.y)/ds*30,tx=b.x-(b.x-cx)/dt*33,ty=b.y-(b.y-cy)/dt*33;
+    path.setAttribute('d',`M ${sx} ${sy} Q ${cx} ${cy} ${tx} ${ty}`);
+    label.setAttribute('x',(sx+2*cx+tx)/4);label.setAttribute('y',(sy+2*cy+ty)/4-5);
+  });
+}
+function paintEdges(){
+  edgeElements.forEach(({g,path,label,edge})=>{
+    const focus=selected!==null&&edge.source===selected;
+    const matching=hoverAction===null||edge.actions.includes(hoverAction);
+    let kind='';
+    if(focus&&matching){
+      const candidates=hoverAction===null?edge.actions:[hoverAction];
+      kind=candidates.every(a=>actionInfo(edge.source,a).good)?'good':'bad';
+    }
+    g.setAttribute('class',`edge ${focus&&matching?'focus '+kind:''} ${selected!==null&&(!focus||!matching)?'dim':''}`);
+    path.setAttribute('marker-end',`url(#arrow${kind?'-'+kind:''})`);
+    label.style.display=($('all-labels').checked||focus&&matching)?'':'none';
+    label.style.opacity=$('all-labels').checked?'.8':'';
+  });
+}
+const monitorNodes=[];
+function drawMonitor(){
+  const w=Math.max(290,D.nDfa*130),h=152,mon=$('monitor');mon.setAttribute('viewBox',`0 0 ${w} ${h}`);
+  const mp=D.dfa.map((_,q)=>({x:65+q*130,y:91}));
+  D.monitorEdges.forEach(edge=>{
+    const a=mp[edge.source],b=mp[edge.target];let d,lx,ly;
+    if(edge.source===edge.target){d=`M${a.x-13},${a.y-18} C${a.x-52},${a.y-82} ${a.x+52},${a.y-82} ${a.x+13},${a.y-18}`;lx=a.x;ly=a.y-65;}
+    else {const sign=b.x>a.x?1:-1;d=`M${a.x+sign*24},${a.y} Q${(a.x+b.x)/2},${a.y-sign*32} ${b.x-sign*27},${b.y}`;lx=(a.x+b.x)/2;ly=a.y-sign*22;}
+    mon.appendChild(svgElement('path',{d,class:'monitor-edge','marker-end':'url(#arrow)'}));
+    const label=svgElement('text',{x:lx,y:ly,class:'monitor-label'},short(edge.label,22));addTitle(label,`${edge.order}. ${edge.label}`);mon.appendChild(label);
+  });
+  const init=mp[D.initialDfa];mon.appendChild(svgElement('path',{d:`M${init.x-53},${init.y} L${init.x-27},${init.y}`,class:'monitor-edge','marker-end':'url(#arrow)'}));
+  mp.forEach((p,q)=>{const g=svgElement('g',{class:'monitor-node'+(D.rejecting[q]?' reject':''),transform:`translate(${p.x} ${p.y})`});g.appendChild(svgElement('circle',{r:24}));if(D.rejecting[q])g.appendChild(svgElement('circle',{r:19}));g.appendChild(svgElement('text',{},`q${D.dfa[q]}`));mon.appendChild(g);monitorNodes.push(g);});
+}
+function selectState(id){selected=id;hoverAction=null;$('follow').checked=false;paint();}
+function inspector(){
+  $('actions').replaceChildren();
+  $('evaluation-set').textContent=`Actions evaluated against frozen W${Math.max(0,event().round-1)}.`;
+  if(selected===null){$('state-select').value='';$('state-title').textContent='Select a state';$('state-status').textContent='';$('state-labels').textContent='Click a node to inspect all enabled and blocked actions.';return;}
+  const id=selected,s=id%D.nStates,kind=status(id);
+  $('state-select').value=id;$('state-title').textContent=stateName(id);
+  $('state-status').textContent={reject:'Rejecting',lost:'Removed',pending:'Pending',winner:'Winning',candidate:'Candidate'}[kind];
+  $('state-labels').textContent=`Product #${id} · L(s) = {${D.labels[s].join(', ')}} · reset at this base state → #${D.initialProduct[s]}`;
+  D.actions.forEach((name,a)=>{
+    const info=actionInfo(id,a),row=document.createElement('div');row.className='action '+(!info.enabled?'off':info.good?'good':'bad');
+    const strong=document.createElement('strong');strong.textContent=name;
+    const badge=document.createElement('span');badge.className='action-status';badge.textContent=!info.enabled?'Disabled':info.good?'✓ Retain':'× Block';
+    const detail=document.createElement('small');
+    const names=info.targets.map(stateName).join(', ');
+    detail.textContent=!info.enabled?'No positive-probability successor.':!info.sourceAlive?'The source state is already outside the candidate set.':info.good?`All successors remain: ${names}`:`Escapes to ${info.blocked.map(stateName).join(', ')}. Full support: ${names}`;
+    row.append(badge,strong,detail);row.addEventListener('mouseenter',()=>{hoverAction=a;paintEdges();});row.addEventListener('mouseleave',()=>{hoverAction=null;paintEdges();});$('actions').appendChild(row);
+  });
+}
+function narration(){
+  const e=event(),r=e.round,id=e.state;
+  const removedThis=D.removedAt.filter(x=>x===r).length;
+  let phase,text;
+  switch(e.phase){
+    case 'initial':phase='Initialization';text='Start with every non-rejecting product state in W₀. Red double circles are bad-prefix monitor states. Candidate does not yet mean winning. Press Play or Step to begin.';break;
+    case 'inspect':phase=`Round ${r} / inspect`;text=`Inspect ${fullState(id)} against the frozen set W${r-1}. For each enabled action, check every possible successor; one escaping outcome blocks the entire action.`;break;
+    case 'keep':{const names=D.actions.filter((_,a)=>actionInfo(id,a).good);phase=`Round ${r} / retain`;text=`Keep ${fullState(id)} for this round: ${names.join(', ')} ${names.length===1?'has':'have'} all successors in W${r-1}. This is provisional until the fixed point is reached.`;break;}
+    case 'remove':phase=`Round ${r} / propose removal`;text=`Remove ${fullState(id)}: no enabled action keeps every successor in W${r-1}. The amber node remains in the old set for other checks this round; its removal takes effect at the round boundary.`;break;
+    case 'commit':phase=`Round ${r} / commit`;text=`Commit ${removedThis} removal${removedThis===1?'':'s'} together. W${r} is now the next candidate set. Only the next round may use these removals to eliminate predecessor states.`;break;
+    default:phase='Greatest fixed point';text=`No state changed in round ${r}: W${r} = W${r-1}. ${D.winning.filter(Boolean).length} of ${total} product states are winning. The retained actions form the deterministic safety shield; reaching a goal is not required by a safety-only property.`;
+  }
+  $('phase').textContent=phase;$('explanation').textContent=text;
+}
+function paint(){
+  const e=event();if($('follow').checked&&e.state!==null){selected=e.state;hoverAction=null;}
+  let remaining=0;
+  nodeElements.forEach((g,id)=>{const kind=status(id);if(!['lost','reject'].includes(kind))remaining++;g.setAttribute('class',`node ${kind} ${id===selected?'selected':''} ${id===e.state?'current':''}`);g.querySelector('.status-mark').textContent=kind==='pending'?'−':kind==='winner'?'✓':kind==='lost'?'×':'';});
+  monitorNodes.forEach((g,q)=>g.setAttribute('class',`monitor-node ${D.rejecting[q]?'reject':''} ${e.state!==null&&Math.floor(e.state/D.nStates)===q?'current':''}`));
+  $('round').textContent=e.round;$('remaining').textContent=remaining;$('removed').textContent=total-remaining;
+  $('timeline').value=cursor;$('step-count').textContent=`Step ${cursor} / ${last}`;
+  $('back').disabled=cursor===0;$('step').disabled=cursor===last;$('next-round').disabled=cursor===last;$('finish').disabled=cursor===last;
+  inspector();paintEdges();narration();
+}
+function stop(){clearTimeout(timer);timer=null;$('play').textContent='▶ Play';}
+function move(i){cursor=Math.max(0,Math.min(last,i));if(cursor===last)stop();paint();}
+function tick(){if(cursor===last){stop();return;}move(cursor+1);if(cursor<last)timer=setTimeout(tick,Number($('speed').value));}
+function play(){if(timer!==null){stop();return;}if(cursor===last)move(0);$('play').textContent='Ⅱ Pause';timer=setTimeout(tick,Number($('speed').value));}
+function nextRound(){stop();let next=cursor+1;while(next<last&&!['commit','fixed'].includes(D.events[next].phase))next++;move(next);}
+$('play').onclick=play;$('step').onclick=()=>{stop();move(cursor+1);};$('back').onclick=()=>{stop();move(cursor-1);};
+$('reset').onclick=()=>{stop();selected=null;hoverAction=null;move(0);};$('finish').onclick=()=>{stop();move(last);};$('next-round').onclick=nextRound;
+$('timeline').oninput=()=>{stop();move(Number($('timeline').value));};$('state-select').onchange=()=>selectState(Number($('state-select').value));$('follow').onchange=paint;$('all-labels').onchange=paintEdges;
+$('speed').onchange=()=>{if(timer!==null){stop();play();}};
+document.addEventListener('keydown',e=>{if(['INPUT','SELECT','BUTTON','TEXTAREA'].includes(e.target.tagName)||e.target.closest('.node'))return;if(e.key===' '){e.preventDefault();play();}else if(e.key==='ArrowRight'){e.preventDefault();stop();move(cursor+1);}else if(e.key==='ArrowLeft'){e.preventDefault();stop();move(cursor-1);}else if(e.key==='Home'){e.preventDefault();stop();move(0);}else if(e.key==='End'){e.preventDefault();stop();move(last);}});
+function applyView(){$('graph').setAttribute('viewBox',`${view.x} ${view.y} ${view.w} ${view.h}`);}
+function fit(){view={x:0,y:0,w:D.layout.width,h:D.layout.height};applyView();}
+function zoom(factor,x=view.x+view.w/2,y=view.y+view.h/2){const w=Math.min(D.layout.width*4,Math.max(100,view.w*factor)),ratio=w/view.w;view={x:x-(x-view.x)*ratio,y:y-(y-view.y)*ratio,w,h:view.h*ratio};applyView();}
+function point(e){const p=$('graph').createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform($('graph').getScreenCTM().inverse());}
+$('fit').onclick=fit;$('zoom-in').onclick=()=>zoom(.8);$('zoom-out').onclick=()=>zoom(1.25);
+$('graph').addEventListener('wheel',e=>{e.preventDefault();const p=point(e);zoom(e.deltaY>0?1.12:.89,p.x,p.y);},{passive:false});
+let drag=null;
+$('graph').addEventListener('pointerdown',e=>{if(e.button!==0)return;const p=point(e),node=e.target.closest('.node');drag={id:node?Number(node.dataset.id):null,start:p,client:{x:e.clientX,y:e.clientY},moved:false,view:{...view},offset:node?{x:positions[Number(node.dataset.id)].x-p.x,y:positions[Number(node.dataset.id)].y-p.y}:null};$('graph').setPointerCapture(e.pointerId);});
+$('graph').addEventListener('pointermove',e=>{if(!drag)return;if(Math.hypot(e.clientX-drag.client.x,e.clientY-drag.client.y)>4)drag.moved=true;const p=point(e);if(drag.id!==null){positions[drag.id]={x:p.x+drag.offset.x,y:p.y+drag.offset.y};geometry();}else{view.x+=drag.start.x-p.x;view.y+=drag.start.y-p.y;applyView();}});
+$('graph').addEventListener('pointerup',()=>{if(drag&&!drag.moved){if(drag.id!==null)selectState(drag.id);else{selected=null;hoverAction=null;$('follow').checked=false;paint();}}drag=null;});$('graph').addEventListener('pointercancel',()=>{drag=null;});
+function download(name,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+$('export-trace').onclick=()=>download('winning-region-trace.json',JSON.stringify(D,null,2),'application/json');
+$('export-svg').onclick=()=>{const clone=$('graph').cloneNode(true);clone.setAttribute('xmlns',NS);clone.setAttribute('width',1200);clone.setAttribute('height',Math.round(1200*view.h/view.w));const style=svgElement('style');style.textContent=document.querySelector('style').textContent;clone.prepend(style);download('winning-region.svg',new XMLSerializer().serializeToString(clone),'image/svg+xml');};
+window.addEventListener('pagehide',stop);
+geometry();drawMonitor();fit();paint();
+})();
+</script>
+</body>
+</html>

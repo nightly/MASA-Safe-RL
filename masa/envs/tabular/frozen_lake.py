@@ -109,6 +109,10 @@ class FrozenLake(GymFrozenLakeEnv):
         self._successor_states = None
         self._transition_probs = None
 
+    def action_names(self) -> tuple[str, ...]:
+        """Human-readable action names in Gymnasium's discrete action order."""
+        return ("Left", "Down", "Right", "Up")
+
     def label_fn(self, obs: int) -> set[str]:
         return set(TILE_LABELS.get(_tile_at(self.desc, int(obs)), set()))
 
